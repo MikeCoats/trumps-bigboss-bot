@@ -1,0 +1,72 @@
+{
+	"format": "{0} {1} {2} {3} {4}.{5}",
+	"order":[
+		"possessives",
+		"subjects",
+		"verbs",
+		"possessives",
+		"objects",
+		"sign-offs"
+    ],
+    "possessives": [
+		"My",
+		"Your",
+		"Our",
+		"Their"
+    ],
+    "subjects": [
+		"Girlfriend",
+		"Boyfriend",
+		"Partner",
+		"Mum",
+		"Dad",
+		"Step-Mum",
+		"Step-Dad",
+		"Mum-in-Law",
+		"Dad-in-Law",
+		"Daughter",
+		"Son",
+		"Step-Daughter",
+		"Step-Son",
+		"Daughter-in-Law",
+		"Son-in-Law",
+		"Best Friend",
+		"Friend",
+		"Dog",
+		"Cat"
+    ],
+    "verbs": [
+		"Stole",
+		"Damaged",
+		"Ruined",
+		"Destroyed",
+		"Took"
+    ],
+    "objects": [
+		"Car",
+		"Money",
+		"Handbag",
+		"Mobile Phone",
+		"Wheelie Bin",
+		"Gate",
+		"Front Door",
+		"Garden Fence",
+		"Umbrella",
+		"Kettle",
+		"Tea-bag"
+    ],
+    "sign-offs": [
+		"",
+		"",
+		"\nIs The Baby Mine?",
+		"",
+		"",
+		"\nI Want A Lie Detector To Prove It.",
+		"",
+		"",
+		"\nSwear It Won't Happen Again.",
+		"",
+		"",
+		"\nI Want A DNA Test!"
+    ]
+}

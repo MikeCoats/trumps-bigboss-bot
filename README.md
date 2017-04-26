@@ -12,9 +12,10 @@ Installation
 cp auth/example.json auth/auth.json
 $EDITOR auth/auth.json
 ```
-* Create an empty virtual environment .
+* Create an empty virtual environment and work in it.
 ```
 virtualenv .
+source bin/activate
 ```
 * Install the package requirements.
 ```

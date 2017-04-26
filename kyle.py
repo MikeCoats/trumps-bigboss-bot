@@ -65,7 +65,7 @@ logoheight = logo.size[1]
 band = Image.new('RGBA', (bgwidth, logoheight), (127, 127, 192, 127))
 # We're going to draw our episode title on the band. Do some set up.
 draw = ImageDraw.Draw(band)
-font = ImageFont.truetype('Arial Bold', 24)
+font = ImageFont.truetype('FiraSans-Medium.ttf', 24)
 
 # We need to offset the insert position of the episode title if it's on
 # more than one line.
@@ -87,7 +87,7 @@ with open('attribution.json', 'r') as f:
     attributions = json.load(f)
     # Attributions use the background file's relative path as the key.
     attr = attributions[backgroundfile]
-    attrfont = ImageFont.truetype('Arial', 8)
+    attrfont = ImageFont.truetype('FiraSans-Regular.ttf', 8)
     draw.text(
         (0, logoheight - 8),
         'Background is derivative of “{0}” by {1} ({2}) '

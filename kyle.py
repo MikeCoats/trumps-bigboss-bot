@@ -67,20 +67,38 @@ band = Image.new('RGBA', (bgwidth, logoheight), (127, 127, 192, 127))
 draw = ImageDraw.Draw(band)
 font = ImageFont.truetype('FiraSans-Medium.ttf', 24)
 
-# We need to offset the insert position of the episode title if it's on
-# more than one line.
-lines = episode.count('\n')
+# We need to split the string on every new-line character as when it
+# runs on the linux server it doesn't wrap it for us. We therefore need
+# to manually put the text on two lines.
+lines = episode.split('\n', 1)
+
+# This provides the offset amount to help vertically centre the text.
 episodeoffset = 12
-if(lines > 0):
-    episodeoffset = 24
-# Draw a drop-shadow, nudged over a bit.
-draw.text(
-    (logowidth + 2, logoheight / 2 - episodeoffset + 2), episode,
-    font=font, fill=(0, 0, 0, 255))
-# Draw the real text in the right place.
-draw.text(
-    (logowidth, logoheight / 2 - episodeoffset), episode,
-    font=font, fill=(255, 255, 255, 255))
+
+if(len(lines) > 1):
+    # Draw a drop-shadow, nudged over a bit.
+    draw.text(
+        (logowidth + 2, logoheight / 2 - 2 * episodeoffset + 2),
+        lines[0], font=font, fill=(0, 0, 0, 255))
+    draw.text(
+        (logowidth + 2, logoheight / 2 + 2),
+        lines[1], font=font, fill=(0, 0, 0, 255))
+    # Draw the real text in the right place.
+    draw.text(
+        (logowidth, logoheight / 2 - 2 * episodeoffset),
+        lines[0], font=font, fill=(255, 255, 255, 255))
+    draw.text(
+        (logowidth, logoheight / 2),
+        lines[1], font=font, fill=(255, 255, 255, 255))
+else:
+    # Draw a drop-shadow, nudged over a bit.
+    draw.text(
+        (logowidth + 2, logoheight / 2 - episodeoffset + 2),
+        lines[0], font=font, fill=(0, 0, 0, 255))
+    # Draw the real text in the right place.
+    draw.text(
+        (logowidth, logoheight / 2 - episodeoffset),
+        lines[0], font=font, fill=(255, 255, 255, 255))
 
 # Draw an attribution for the background images in the bottom left.
 with open('attribution.json', 'r') as f:

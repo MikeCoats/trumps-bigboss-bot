@@ -40,12 +40,15 @@ with open(patternfile, 'r') as f:
     # The order specifies which list in the pattern should be used in
     # which format placeholder.
     order = pattern['order']
-    # We then grab a random entry from each of the lists.
+    # We then grab a random entry from each of the lists. We also remove
+    # that entry so that it won't be duplicated again. This improves the
+    # diversity of the messages.
     arguments = []
     for section in order:
         data = pattern[section]
         item = random.choice(data)
         arguments.append(item)
+        data.remove(item)
     # And then blat the entries against the formatting string.
     episode = format.format(*arguments)
 

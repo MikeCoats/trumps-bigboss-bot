@@ -12,7 +12,9 @@
 		"My",
 		"Your",
 		"Our",
-		"Their"
+		"Their",
+		"Her",
+		"His"
     ],
     "subjects": [
 		"Girlfriend",
@@ -33,14 +35,32 @@
 		"Best Friend",
 		"Friend",
 		"Dog",
-		"Cat"
+		"Cat",
+		"Kestrel",
+		"Chihuahua",
+		"Pug",
+		"Terrier",
+		"Pigeon"
     ],
     "verbs": [
 		"Stole",
 		"Damaged",
 		"Ruined",
 		"Destroyed",
-		"Took"
+		"Took",
+		"Burned",
+		"Tore",
+		"Ruined",
+		"Shredded",
+		"Cut Up",
+		"Sold",
+		"Gave Away",
+		"Soiled",
+		"Spilled Paint On",
+		"Scratched",
+		"Scribbled On",
+		"Graffiti-ied",
+		"Urinated On"
     ],
     "objects": [
 		"Car",
@@ -53,7 +73,12 @@
 		"Garden Fence",
 		"Umbrella",
 		"Kettle",
-		"Tea-bag"
+		"Tea-bag",
+		"Rich Tea Biscuits",
+		"Pint Of Bitter",
+		"New Five Pound Note",
+		"Novelty Stuffed Meerkat",
+		"Drone"
     ],
     "sign-offs": [
 		"",
@@ -67,6 +92,12 @@
 		"\nSwear It Won't Happen Again.",
 		"",
 		"",
-		"\nI Want A DNA Test!"
+		"\nI Want A DNA Test!",
+		"",
+		"",
+		"\nPaternity Test! Who's The Father?",
+		"",
+		"",
+		"\nBut What Did The Lie Detector Say?"
     ]
 }

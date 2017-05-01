@@ -40,5 +40,17 @@
 		"author": "boellstiftung",
 		"url": "https://flic.kr/p/nK6vP1",
 		"license": "CC BY SA 2.0"
+	},
+	"FiraSans-Medium.ttf": {
+		"title": "Fira Sans Medium",
+		"author": "The Mozilla Foundation and Telefonica S.A.",
+		"url": "https://github.com/mozilla/Fira/blob/master/ttf/FiraSans-Medium.ttf",
+		"license": "SIL OFL 1.1"
+	},
+	"FiraSans-Medium.ttf": {
+		"title": "Fira Sans",
+		"author": "The Mozilla Foundation and Telefonica S.A.",
+		"url": "https://github.com/mozilla/Fira/blob/master/ttf/FiraSans-Regular.ttf",
+		"license": "SIL OFL 1.1"
 	}
 }

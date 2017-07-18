@@ -1,53 +1,11 @@
 {
-	"backgrounds/01.jpg": {
-		"title": "Berlin Buzzwords 2015 - Tag 0",
-		"author": "newthinking_de",
-		"url": "https://flic.kr/p/tBPLs6",
-		"license": "CC BY SA 2.0"
-	},
-	"backgrounds/02.jpg": {
-		"title": "4F9A8490",
-		"author": "websummit",
-		"url": "https://flic.kr/p/PfyPTU",
-		"license": "CC BY 2.0"
-	},
-	"backgrounds/03.jpg": {
-		"title": "4F9A8758",
-		"author": "websummit",
-		"url": "https://flic.kr/p/NdGckj",
-		"license": "CC BY 2.0"
-	},
-	"backgrounds/04.jpg": {
-		"title": "4F9A8735",
-		"author": "websummit",
-		"url": "https://flic.kr/p/PfyL9u",
-		"license": "CC BY 2.0"
-	},
-	"backgrounds/05.jpg": {
-		"title": "droidcon Berlin 2016",
-		"author": "droidcon",
-		"url": "https://flic.kr/p/HrUPum",
-		"license": "CC BY SA 2.0"
-	},
-	"backgrounds/06.jpg": {
-		"title": "droidcon Berlin 2016",
-		"author": "droidcon",
-		"url": "https://flic.kr/p/HrUPuS",
-		"license": "CC BY SA 2.0"
-	},
-	"backgrounds/07.jpg": {
-		"title": "Saal-Ansicht",
-		"author": "boellstiftung",
-		"url": "https://flic.kr/p/nK6vP1",
-		"license": "CC BY SA 2.0"
-	},
 	"FiraSans-Medium.ttf": {
 		"title": "Fira Sans Medium",
 		"author": "The Mozilla Foundation and Telefonica S.A.",
 		"url": "https://github.com/mozilla/Fira/blob/master/ttf/FiraSans-Medium.ttf",
 		"license": "SIL OFL 1.1"
 	},
-	"FiraSans-Medium.ttf": {
+	"FiraSans-Regular.ttf": {
 		"title": "Fira Sans",
 		"author": "The Mozilla Foundation and Telefonica S.A.",
 		"url": "https://github.com/mozilla/Fira/blob/master/ttf/FiraSans-Regular.ttf",

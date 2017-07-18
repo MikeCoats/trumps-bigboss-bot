@@ -1,5 +1,1 @@
-.Python
-pip-selfcheck.json
-bin/
-include/
-lib/
+.env/

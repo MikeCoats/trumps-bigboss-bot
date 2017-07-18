@@ -7,9 +7,8 @@ from PIL import Image, ImageDraw, ImageFont
 from twython import Twython
 
 # We need to seed the RNG with the current time (done by not specifying
-# a seed) or we'll just create the same episode again and again.
+# a seed) or we'll just use the same quote again and again.
 random.seed()
-
 
 # A helper function returns a list of all the files in a directory.
 def listfiles(filepath):
@@ -19,113 +18,100 @@ def listfiles(filepath):
             files.append(f)
     return files
 
-# Choose a random pattern. A pattern is the form the episode title is
-# written in, e.g My X Y your Z.
+# Choose the pattern file
 patterns = listfiles('patterns')
 patternfile = path.join('patterns', random.choice(patterns))
 # Choose a random background image
 backgrounds = listfiles('backgrounds')
 backgroundfile = path.join('backgrounds', random.choice(backgrounds))
-# Choose a random show logo.
-logos = listfiles('logos')
-logofile = path.join('logos', random.choice(logos))
 
-# Time to build the episode title.
-episode = ''
+# Time to build the tweet.
+his_tweet = []
+our_tweet = ''
+our_hashtags = []
+
 with open(patternfile, 'r') as f:
     pattern = json.load(f)
-    # The format will look like "{0} {1} {2} {3}." so it can be used by
-    # python to build up the string.
-    format = pattern['format']
-    # The order specifies which list in the pattern should be used in
-    # which format placeholder.
-    order = pattern['order']
-    # We then grab a random entry from each of the lists. We also remove
-    # that entry so that it won't be duplicated again. This improves the
-    # diversity of the messages.
-    arguments = []
-    for section in order:
-        data = pattern[section]
-        item = random.choice(data)
-        arguments.append(item)
-        data.remove(item)
-    # And then blat the entries against the formatting string.
-    episode = format.format(*arguments)
 
-# Open the Images with Pillow as we're going to perform graphical
-# operations on them.
+    # His tweet is the one that will be in the screenshot.
+    his_tweet = random.choice(pattern['his_lines'])
+
+    # Our tweet is the message of shock we're displaying.
+    our_tweet = random.choice(pattern['our_tweets'])
+
+    # The hashtags are for our tweets.
+    hashtags = pattern['hashtags']
+    tag1 = random.choice(hashtags)
+    hashtags.remove(tag1)
+    tag2 = random.choice(hashtags)
+    hashtags.remove(tag2)
+    tag3 = random.choice(hashtags)
+
+    our_hashtags.append(tag1)
+    our_hashtags.append(tag2)
+    our_hashtags.append(tag3)
+
+# This is all the tweet screenshot layout information we need.
+tweet_top = 80
+tweet_left = 20
+timestamp_top = 210
+timestamp_left = tweet_left
+retweets_top = 252
+retweets_left = tweet_left+10
+likes_top = retweets_top
+likes_left = 144
+
+rp_top = 291
+rp_left = 50
+rt_top = rp_top
+rt_left = 130
+ht_top = rp_top
+ht_left = 210
+
+
+# This is for the tweet engagement scores.
+replies = random.randint(13000,54000)
+retweets = random.randint(15000,31000)
+likes = random.randint(55000,99000)
+
+retweets_s = "{0}".format(retweets)
+likes_s = "{0}".format(likes)
+
+rp = "{0}K".format(int(replies / 1000))
+rt = "{0}K".format(int(retweets / 1000))
+ht = "{0}K".format(int(likes / 1000))
+
+
+# Use Pillow to draw on our chosen background image.
 bg = Image.open(backgroundfile)
-logo = Image.open(logofile)
-# Grab the image size info in sensible names. We're going to use them in
-# equations later, so it'll make more sense if their names make sense.
-bgwidth = bg.size[0]
-bgheight = bg.size[1]
-logowidth = logo.size[0]
-logoheight = logo.size[1]
+draw = ImageDraw.Draw(bg)
 
-# We want strip across the bottom of the screen that will give us a
-# little more contrast to make the episode titles easier to read.
-band = Image.new('RGBA', (bgwidth, logoheight), (127, 127, 192, 127))
-# We're going to draw our episode title on the band. Do some set up.
-draw = ImageDraw.Draw(band)
-font = ImageFont.truetype('FiraSans-Medium.ttf', 24)
+# Load the fonts for the body & the engagements.
+body_font = ImageFont.truetype('FiraSans-Medium.ttf', 24)
+small_font = ImageFont.truetype('FiraSans-Regular.ttf',14)
 
-# We need to split the string on every new-line character as when it
-# runs on the linux server it doesn't wrap it for us. We therefore need
-# to manually put the text on two lines.
-lines = episode.split('\n', 1)
+# Do a little vertical centring - this is not correct, but it's close.
+lineoffset = 30
+tweet_offset = ((4-len(his_tweet)) * lineoffset) / 2
+tweet_top = tweet_top + tweet_offset
 
-# This provides the offset amount to help vertically centre the text.
-episodeoffset = 12
+# Write out the tweet.
+for i in range(len(his_tweet)):
+    draw.text((tweet_left,tweet_top+i*lineoffset),his_tweet[i],font=body_font, fill=(0,0,0,255))
 
-if(len(lines) > 1):
-    # Draw a drop-shadow, nudged over a bit.
-    draw.text(
-        (logowidth + 2, logoheight / 2 - 2 * episodeoffset + 2),
-        lines[0], font=font, fill=(0, 0, 0, 255))
-    draw.text(
-        (logowidth + 2, logoheight / 2 + 2),
-        lines[1], font=font, fill=(0, 0, 0, 255))
-    # Draw the real text in the right place.
-    draw.text(
-        (logowidth, logoheight / 2 - 2 * episodeoffset),
-        lines[0], font=font, fill=(255, 255, 255, 255))
-    draw.text(
-        (logowidth, logoheight / 2),
-        lines[1], font=font, fill=(255, 255, 255, 255))
-else:
-    # Draw a drop-shadow, nudged over a bit.
-    draw.text(
-        (logowidth + 2, logoheight / 2 - episodeoffset + 2),
-        lines[0], font=font, fill=(0, 0, 0, 255))
-    # Draw the real text in the right place.
-    draw.text(
-        (logowidth, logoheight / 2 - episodeoffset),
-        lines[0], font=font, fill=(255, 255, 255, 255))
+# Write out the engagement scores
+draw.text((retweets_left,retweets_top),retweets_s,font=small_font, fill=(0,0,0,255))
+draw.text((likes_left,likes_top),likes_s,font=small_font, fill=(0,0,0,255))
 
-# Draw an attribution for the background images in the bottom left.
-with open('attribution.json', 'r') as f:
-    attributions = json.load(f)
-    # Attributions use the background file's relative path as the key.
-    attr = attributions[backgroundfile]
-    attrfont = ImageFont.truetype('FiraSans-Regular.ttf', 8)
-    draw.text(
-        (0, logoheight - 8),
-        'Background is derivative of “{0}” by {1} ({2}) '
-        'licensed under {3}.'.format(
-            attr['title'], attr['author'], attr['url'], attr['license']),
-        font=attrfont, fill=(255, 255, 255, 255))
+draw.text((rp_left,rp_top),rp,font=small_font, fill=(96,96,96,255))
+draw.text((rt_left,rt_top),rt,font=small_font, fill=(96,96,96,255))
+draw.text((ht_left,ht_top),ht,font=small_font, fill=(96,96,96,255))
 
-# Paste the string of colour and the logo onto the chosen background
-# image.
-logooffset = bgheight - logoheight
-bg.paste(band, (0, logooffset), band)
-bg.paste(logo, (0, logooffset), logo)
-# We need to save the image to disk, as the twitter up-loader takes a
-# file as its argument, not a Pillow Image. We save in 'output' as this
-# is a directory git has been told about, but has also been told to
-# ignore its contents.
+# Save the image to disk as the twython api uses files for posting.
 bg.save(path.join('output', 'done.jpg'), 'JPEG')
+
+# Make up a fake tweet ID so that it looks like it's been deleted.
+tweet_id = random.randint(100000000000000000,999999999999999999)
 
 # The authentication keys,secrets and tokens are saved in a file git
 # ignores for us. Make sure you've copied the example.json file and
@@ -145,5 +131,5 @@ with open('auth/auth.json', 'r') as f:
     image_ids = twitter.upload_media(media=image_open)
     # 2. Make a status update that references the media id.
     twitter.update_status(
-        status='Coming up: ' + episode + ' #jeremykyle',
+        status='{0} {1} {2} {3} https://twitter.com/realDonaldTrump/status/{4}'.format(our_tweet, our_hashtags[0], our_hashtags[1], our_hashtags[2], tweet_id),
         media_ids=image_ids['media_id'])

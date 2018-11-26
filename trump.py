@@ -108,6 +108,7 @@ draw.text((rt_left,rt_top),rt,font=small_font, fill=(96,96,96,255))
 draw.text((ht_left,ht_top),ht,font=small_font, fill=(96,96,96,255))
 
 # Save the image to disk as the twython api uses files for posting.
+bg = bg.convert('RGB')
 bg.save(path.join('output', 'done.jpg'), 'JPEG')
 
 # Make up a fake tweet ID so that it looks like it's been deleted.
